@@ -1,4 +1,7 @@
-langchain
-langchain-community
-
-
+fastapi
+uvicorn
+python-dotenv
+supabase==2.6.0
+google-genai
+python-multipart
+pillow
