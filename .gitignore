@@ -21,3 +21,7 @@ Thumbs.db
 # Build
 dist/
 build/
+node_modules/
+dist/
+frontend/node_modules/
+frontend/dist/
