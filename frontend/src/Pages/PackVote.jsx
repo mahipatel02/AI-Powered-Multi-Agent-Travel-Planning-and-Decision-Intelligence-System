@@ -5,7 +5,7 @@ import { Users, Zap, Trophy, AlertTriangle, Copy, Check, Send, Link } from 'luci
 import { createClient } from '@supabase/supabase-js'
 import { useSearchParams } from 'react-router-dom'
 
-const API = 'http://localhost:8000'
+const API = 'https://ai-powered-multi-agent-travel-planning.onrender.com'
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
   import.meta.env.VITE_SUPABASE_ANON_KEY

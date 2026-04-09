@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Building, Star, CheckCircle } from 'lucide-react'
 import { supabase } from '../supabase'
 
-const API = 'http://localhost:8000'
+const API = 'https://ai-powered-multi-agent-travel-planning.onrender.com'
 
 const floatingIcons = [
     { icon: '🏨', delay: 0, x: '8%', y: '15%' },

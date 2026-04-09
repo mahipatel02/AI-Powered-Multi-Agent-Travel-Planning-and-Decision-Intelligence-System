@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import axios from 'axios'
 import { MapPin, Bell, Calendar, Save, ShieldAlert, Navigation } from 'lucide-react'
 
-const API = 'http://localhost:8000'
+const API = 'https://ai-powered-multi-agent-travel-planning.onrender.com'
 
 const floatingIcons = [
     { icon: '🗓️', delay: 0, x: '8%', y: '15%' },
