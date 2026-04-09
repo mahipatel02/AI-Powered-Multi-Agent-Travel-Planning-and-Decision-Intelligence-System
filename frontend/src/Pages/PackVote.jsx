@@ -11,6 +11,13 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY
 )
 
+const floatingIcons = [
+  { icon: '🎒', delay: 0, x: '5%', y: '15%' },
+  { icon: '⚔️', delay: 0.5, x: '90%', y: '25%' },
+  { icon: '🗺️', delay: 1, x: '10%', y: '75%' },
+  { icon: '🏕️', delay: 0.3, x: '85%', y: '80%' },
+]
+
 const VIBES = [
   { id: 'beach', label: 'Beach', icon: '🏖️', color: '#4E8EA2' },
   { id: 'mountains', label: 'Mountains', icon: '🏔️', color: '#49769F' },
@@ -182,7 +189,7 @@ export default function PackVote() {
 
   const copyLink = () => { 
     const url = `${window.location.origin}/packvote?joinId=${groupId}`
-    navigator.clipboard.writeText(`Join my TripMind War Room! ⚔️\nClick here: ${url}\nOr use code manually: ${groupId}`)
+    navigator.clipboard.writeText(`Join my Lumina War Room! ⚔️\nClick here: ${url}\nOr use code manually: ${groupId}`)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000) 
   }
@@ -196,14 +203,26 @@ export default function PackVote() {
   const resetAll = () => { setPhase('home'); setResult(null); setGroupId(null); setMemberId(null); setMembers([]); setPrefAdded(false); setSelectedVibes([]); setSelectedDest(''); setChatMessages([]); setWishlist([]) }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #190019 0%, #2B124C 50%, #0A0010 100%)', paddingTop: '80px' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, var(--abyss) 0%, var(--plum) 50%, var(--void) 100%)', paddingTop: '80px', position: 'relative', overflow: 'hidden' }}>
+      <div className="film-grain"></div>
+
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', overflow: 'hidden', zIndex: 0 }}>
         {[...Array(24)].map((_, i) => (
           <motion.div key={i} animate={{ y: [0, -40, 0], opacity: [0.2, 0.7, 0.2] }}
             transition={{ duration: 3 + i * 0.3, repeat: Infinity, delay: i * 0.2 }}
-            style={{ position: 'absolute', width: 2, height: 2, borderRadius: '50%', background: i % 3 === 0 ? '#DF86B2' : '#7C2D8E', left: `${4 + i * 4}%`, top: `${10 + (i % 6) * 12}%` }} />
+            style={{ position: 'absolute', width: 2, height: 2, borderRadius: '50%', background: i % 3 === 0 ? 'var(--dusty-pink)' : 'var(--grape)', left: `${4 + i * 4}%`, top: `${10 + (i % 6) * 12}%` }} />
         ))}
       </div>
+
+      {floatingIcons.map((t, i) => (
+          <motion.div key={`float-${i}`}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 0.8, scale: 1, y: [0, -15, 0] }}
+              transition={{ delay: t.delay, duration: 4, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' }}
+              className="floating-3d-icon"
+              style={{ left: t.x, top: t.y, fontSize: '36px' }}
+          >{t.icon}</motion.div>
+      ))}
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '960px', margin: '0 auto', padding: '40px 24px' }}>
 
@@ -228,9 +247,9 @@ export default function PackVote() {
                 { step: '04', title: 'AI decides', desc: 'PackVote AI finds the perfect destination for the group.', icon: '🤖' },
               ].map((s, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.1 }}
-                  className="glass-purple" style={{ padding: '24px', textAlign: 'left', borderRadius: '16px' }}>
+                  className="glass-purple deep-hover" style={{ padding: '24px', textAlign: 'left', borderRadius: '16px' }}>
                   <div style={{ fontSize: '28px', marginBottom: '8px' }}>{s.icon}</div>
-                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: '#7C2D8E', marginBottom: '6px' }}>{s.step}</div>
+                  <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: 'var(--dusty-pink)', marginBottom: '6px' }}>{s.step}</div>
                   <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '18px', color: '#FBE4D8', fontWeight: 600, marginBottom: '6px' }}>{s.title}</div>
                   <div style={{ fontSize: '13px', color: '#7BBDE8', lineHeight: 1.6, fontWeight: 300 }}>{s.desc}</div>
                 </motion.div>

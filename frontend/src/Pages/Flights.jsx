@@ -6,6 +6,13 @@ import { supabase } from '../supabase'
 
 const API = 'http://localhost:8000'
 
+const floatingIcons = [
+    { icon: '✈️', delay: 0, x: '10%', y: '15%' },
+    { icon: '🎫', delay: 0.5, x: '85%', y: '20%' },
+    { icon: '🧳', delay: 1, x: '15%', y: '80%' },
+    { icon: '🌍', delay: 0.3, x: '80%', y: '75%' },
+]
+
 export default function Flights() {
     const [form, setForm] = useState({ origin: '', destination: '', date: '', passengers: 1 })
     const [flights, setFlights] = useState([])
@@ -38,7 +45,7 @@ export default function Flights() {
             key: "rzp_test_1DP5mmOlF5G5ag", // Standard mock test key
             amount: selectedFlight.price_inr * 100, // Amount in paise
             currency: "INR",
-            name: "TripMind Travel",
+            name: "Lumina Travel",
             description: `Flight ${selectedFlight.flight_number} to ${selectedFlight.arrival}`,
             handler: async function (response) {
                 setProcessing(true)
@@ -115,17 +122,31 @@ export default function Flights() {
     const airlineColors = { 'IndiGo': '#6C63FF', 'Air India': '#DC143C', 'SpiceJet': '#FF6B35', 'Vistara': '#7B2D8E', 'Akasa Air': '#FF8C00' }
 
     return (
-        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #001D39 0%, #0A4174 50%, #001D39 100%)', paddingTop: '80px' }}>
-            <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px' }}>
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, var(--abyss) 0%, var(--navy) 40%, var(--abyss) 100%)', paddingTop: '80px', position: 'relative', overflow: 'hidden' }}>
+            <div className="film-grain"></div>
+
+            <div style={{ position: 'absolute', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(108,141,120,0.15) 0%, transparent 70%)', top: '10%', right: '10%', pointerEvents: 'none' }} />
+
+            {floatingIcons.map((t, i) => (
+                <motion.div key={`float-${i}`}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 0.8, scale: 1, y: [0, -15, 0] }}
+                    transition={{ delay: t.delay, duration: 4, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' }}
+                    className="floating-3d-icon"
+                    style={{ left: t.x, top: t.y, fontSize: '36px' }}
+                >{t.icon}</motion.div>
+            ))}
+
+            <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px', position: 'relative', zIndex: 2 }}>
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '40px' }}>
-                    <div className="section-tag"><Plane size={12} /> AI flight search</div>
+                    <div className="section-tag glass-green" style={{ color: 'var(--subway-green)', border: 'none' }}><Plane size={12} /> AI flight search</div>
                     <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '48px', color: '#FBE4D8', fontWeight: 600 }}>Find your flight</h1>
                     <p style={{ color: '#7BBDE8', fontSize: '14px', marginTop: '8px' }}>Powered by AI — realistic results, zero booking fees</p>
                 </motion.div>
 
                 {/* Search form */}
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                    className="glass" style={{ padding: '28px', borderRadius: '20px', marginBottom: '32px' }}>
+                    className="glass-beige deep-hover" style={{ padding: '28px', borderRadius: '20px', marginBottom: '32px' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto auto', gap: '12px', alignItems: 'end', flexWrap: 'wrap' }}>
                         <div>
                             <label style={{ color: '#7BBDE8', fontSize: '12px', display: 'block', marginBottom: '6px', fontWeight: 500 }}>From</label>
@@ -164,7 +185,7 @@ export default function Flights() {
 
                     {!loading && flights.map((f, i) => (
                         <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-                            className="glass" style={{ padding: '24px', borderRadius: '16px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+                            className="glass-green deep-hover" style={{ padding: '24px', borderRadius: '16px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
                             <div style={{ minWidth: '120px' }}>
                                 <div style={{ fontSize: '11px', fontWeight: 700, color: airlineColors[f.airline] || '#7BBDE8', letterSpacing: '1px', marginBottom: '4px' }}>{f.airline}</div>
                                 <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', color: '#49769F' }}>{f.flight_number}</div>
@@ -236,7 +257,7 @@ export default function Flights() {
                     {bookingSuccess && (
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                             style={{ position: 'fixed', inset: 0, background: 'rgba(0,29,57,0.9)', backdropFilter: 'blur(12px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
-                            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="glass" style={{ padding: '48px', borderRadius: '24px', textAlign: 'center', maxWidth: '400px' }}>
+                            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="glass-beige deep-hover" style={{ padding: '48px', borderRadius: '24px', textAlign: 'center', maxWidth: '400px' }}>
                                 <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 0.5 }} style={{ display: 'inline-block', marginBottom: '24px', color: '#8EB5A9' }}>
                                     <CheckCircle size={64} />
                                 </motion.div>

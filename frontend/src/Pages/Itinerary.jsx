@@ -6,6 +6,13 @@ import { MapPin, Bell, Calendar, Save, ShieldAlert, Navigation } from 'lucide-re
 
 const API = 'http://localhost:8000'
 
+const floatingIcons = [
+    { icon: '🗓️', delay: 0, x: '8%', y: '15%' },
+    { icon: '✈️', delay: 0.5, x: '88%', y: '25%' },
+    { icon: '🏨', delay: 1, x: '12%', y: '75%' },
+    { icon: '🍜', delay: 0.3, x: '85%', y: '80%' },
+]
+
 export function Itinerary() {
     const [destination, setDestination] = useState('')
     const [days, setDays] = useState(3)
@@ -50,16 +57,30 @@ export function Itinerary() {
     const currentScam = destination ? scamAlerts[destination.toLowerCase()] || 'Stay alert for pickpockets in crowded tourist areas.' : null
 
     return (
-        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #291C0E 0%, #0A4174 60%, #001D39 100%)', paddingTop: '80px' }}>
-            <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px' }}>
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, var(--abyss) 0%, var(--navy) 60%, var(--abyss) 100%)', paddingTop: '80px', position: 'relative', overflow: 'hidden' }}>
+            <div className="film-grain"></div>
+
+            <div style={{ position: 'absolute', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(108,141,120,0.15) 0%, transparent 70%)', top: '10%', left: '10%', pointerEvents: 'none' }} />
+            
+            {floatingIcons.map((t, i) => (
+                <motion.div key={`float-${i}`}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 0.8, scale: 1, y: [0, -15, 0] }}
+                    transition={{ delay: t.delay, duration: 4, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' }}
+                    className="floating-3d-icon"
+                    style={{ left: t.x, top: t.y, fontSize: '36px' }}
+                >{t.icon}</motion.div>
+            ))}
+
+            <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px', position: 'relative', zIndex: 2 }}>
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: '32px' }}>
-                    <div className="section-tag"><Calendar size={12} /> Trip itinerary</div>
+                    <div className="section-tag glass-green" style={{ color: 'var(--subway-green)', border: 'none' }}><Calendar size={12} /> Trip itinerary</div>
                     <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '48px', color: '#FBE4D8', fontWeight: 600 }}>Your itinerary</h1>
                 </motion.div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
                     {/* Save form */}
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-warm" style={{ padding: '28px', borderRadius: '20px' }}>
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-beige deep-hover" style={{ padding: '28px', borderRadius: '20px' }}>
                         <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '22px', color: '#FBE4D8', marginBottom: '20px' }}>Save itinerary</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <input value={destination} onChange={e => setDestination(e.target.value)} placeholder="Destination" />
@@ -75,7 +96,7 @@ export function Itinerary() {
                     {/* Reminder + Preview */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                         {savedId && (
-                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-warm" style={{ padding: '28px', borderRadius: '20px' }}>
+                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-beige deep-hover" style={{ padding: '28px', borderRadius: '20px' }}>
                                 <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '22px', color: '#FBE4D8', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                     <Bell size={18} color="#EF9F27" /> Add reminder
                                 </h3>
@@ -93,7 +114,7 @@ export function Itinerary() {
 
                         {/* Advanced AI: Scam Guardian */}
                         {itineraryText && (
-                            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="glass-warm" style={{ padding: '20px', borderRadius: '16px', borderLeft: '4px solid var(--coral)' }}>
+                            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="glass-pink deep-hover" style={{ padding: '20px', borderRadius: '16px', borderLeft: '4px solid var(--coral)' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--coral)', marginBottom: '8px', fontWeight: 600 }}>
                                     <ShieldAlert size={16} /> Scam & Safety Guardian
                                 </div>
@@ -114,7 +135,7 @@ export function Itinerary() {
                                             return (
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                                                     {data.map((day, i) => (
-                                                        <div key={i} style={{ background: 'rgba(0,0,0,0.2)', borderRadius: '12px', padding: '16px', borderLeft: '3px solid #4E8EA2' }}>
+                                                        <div key={i} className="glass-green deep-hover" style={{ borderRadius: '12px', padding: '16px', borderLeft: '3px solid var(--subway-green)' }}>
                                                             <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '18px', color: '#FBE4D8', fontWeight: 600, marginBottom: '12px' }}>
                                                                 Day {day.day}: {day.title || 'Overview'}
                                                             </div>

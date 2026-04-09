@@ -107,9 +107,10 @@ export default function Landing() {
                 {travelIcons.map((t, i) => (
                     <motion.div key={i}
                         initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 0.6, scale: 1, y: [0, -12, 0] }}
-                        transition={{ delay: t.delay, duration: 3, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' }}
-                        style={{ position: 'absolute', left: t.x, top: t.y, fontSize: '28px', pointerEvents: 'none', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))' }}
+                        animate={{ opacity: 0.8, scale: 1, y: [0, -15, 0] }}
+                        transition={{ delay: t.delay, duration: 4, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' }}
+                        className="floating-3d-icon"
+                        style={{ left: t.x, top: t.y, fontSize: '36px' }}
                     >{t.icon}</motion.div>
                 ))}
 
@@ -244,7 +245,7 @@ export default function Landing() {
 
             {/* Footer */}
             <footer style={{ borderTop: '1px solid rgba(123,189,232,0.08)', padding: '32px', textAlign: 'center' }}>
-                <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '20px', color: '#FBE4D8', marginBottom: '8px' }}>TripMind ✦</div>
+                <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '20px', color: '#FBE4D8', marginBottom: '8px' }}>Lumina ✦</div>
                 <div style={{ color: '#49769F', fontSize: '12px' }}>Final year project · AI-powered travel intelligence · Built with ♥</div>
             </footer>
         </div>

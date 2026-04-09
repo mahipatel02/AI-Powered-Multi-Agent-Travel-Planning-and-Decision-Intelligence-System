@@ -1,86 +1,72 @@
-# AI-Powered Multi-Agent Travel Planning and Decision Intelligence System
+<div align="center">
+  <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" alt="Travel AI Cover" width="100%" style="border-radius: 12px; margin-bottom: 20px" />
+  <h1>🌍 AI-Powered Multi-Agent Travel Intelligence System</h1>
+  <p><em>An intelligent travel assistant that helps users plan trips, make group travel decisions, and adapt itineraries using a robust multi-agent architecture.</em></p>
+</div>
 
-An **AI-powered intelligent travel assistant** that helps users plan trips, make group travel decisions, and adapt itineraries using a **multi-agent architecture**.
-
-The system combines **AI reasoning, collaborative decision-making, and real-time itinerary optimization** to improve travel planning experiences.
+The system combines **AI reasoning, collaborative decision-making, and real-time itinerary optimization** to provide a seamless, premium travel planning experience.
 
 ---
 
-## Tech Stack
+## ⚡ Tech Stack
 
 **Frontend**
-
-* React (Vite)
-* Modern component-based UI
-* Supabase authentication
+* ⚛️ React & Vite - Modern component-based UI with fluid Framer Motion animations
+* 🔐 Supabase Authentication - Secure and seamless login
 
 **Backend**
-
-* FastAPI (Python)
-* Modular AI agent architecture
-* REST APIs for travel planning services
+* 🐍 FastAPI (Python) - High performance asynchronous server
+* 🤖 Modular AI Agent Architecture - REST APIs for travel planning services
 
 **AI Layer**
-
-* Gemini 2.5 Flash
-* LangGraph multi-agent orchestration
-* Task-specific AI agents
+* ✨ Gemini 2.5 Flash - For high-speed, intelligent generation
+* 🕸️ LangGraph Orchestration - Multi-agent collaboration
 
 **Database**
-
-* Supabase (PostgreSQL)
-* User authentication and travel data storage
+* 🐘 Supabase (PostgreSQL) - Reliable data and auth storage
 
 ---
 
-## Core AI Agents
+## 🧠 Core AI Agents
 
-The system uses multiple specialized AI agents:
+Our system utilizes specialized AI agents working together in a **LangGraph pipeline**:
 
-* **Chatbot Agent** – Conversational travel assistant
-* **PackVote Agent** – Group travel decision intelligence
-* **Disruption Recovery Agent** – Handles itinerary disruptions
-* **Multimodal Agent** – Supports image/text travel queries
-* **Regret Score Agent** – Optimizes itinerary satisfaction
-
-These agents collaborate through a **LangGraph orchestration pipeline**.
+1. **Chatbot Agent** 💬 – Conversational travel assistant capturing nuanced preferences
+2. **PackVote Agent** 🗳️ – Group travel decision intelligence for solving destination stalemates
+3. **Disruption Recovery Agent** ☔ – Acts proactively to handle itinerary disruptions
+4. **Multimodal Agent** 📸 – Supports image-based travel discovery
+5. **Regret Score Agent** 📉 – Learns from past trips to optimize future satisfaction
 
 ---
 
-## Key Features
+## ✨ Key Features
 
-* AI-powered travel itinerary generation
-* Multi-agent decision intelligence
-* Collaborative group travel planning
-* Real-time itinerary adaptation
-* Conversational travel assistant
-* Regret score optimization for better trip satisfaction
+- **AI-Powered Itinerary Generation:** Tailored day-by-day plans based on vibe, group type, and destination.
+- **Collaborative PackVote:** Stop fighting over where to go; let AI find the perfect middle ground.
+- **Regret Score Analysis:** Learn from "what went wrong" to enhance algorithmic suggestions.
+- **Dynamic Micro-Interactions:** A beautiful, responsive interface designed to feel premium.
 
 ---
 
-## System Architecture
+## 🏗️ System Architecture
 
-Frontend (React)
-⬇
-FastAPI Backend
-⬇
-LangGraph Multi-Agent System
-⬇
-Gemini 2.5 Flash AI Model
-⬇
-Supabase Database
+```mermaid
+graph TD;
+    A[Frontend React UI] --> B[FastAPI Backend];
+    B --> C[LangGraph Agent Orchestrator];
+    C --> D[Gemini 2.5 Flash Models];
+    B --> E[(Supabase PostgreSQL)];
+```
 
 ---
 
-## Future Improvements
+## 🚀 Future Improvements
 
-* Real-time flight and hotel APIs
-* Personal travel recommendation engine
-* Reinforcement learning for itinerary optimization
-* Mobile application integration
+* 🛩️ **Real-time API integrations** (Flights, Hotels booking systems)
+* 📱 **Mobile application release** (React Native)
+* 🎯 **Reinforcement Learning** for deeper itinerary personalization
 
 ---
 
-## Author
-
-Mahipatel
+### Author
+🎓 **Mahipatel** - Final Year Thesis Project

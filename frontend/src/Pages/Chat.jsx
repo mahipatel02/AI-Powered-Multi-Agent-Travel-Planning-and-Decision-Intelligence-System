@@ -11,15 +11,22 @@ const ImageGallery = ({ destination }) => {
     useEffect(() => {
         if (!destination) return;
         const fetchImages = async () => {
+             const fallbackImages = [
+                 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80',
+                 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80',
+                 'https://images.unsplash.com/photo-1504150558240-0b4fd8946624?w=800&q=80'
+             ];
              const key = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
-             if (!key) return;
+             if (!key) { setImages(fallbackImages); return; }
              try {
                  const res = await fetch(`https://api.unsplash.com/search/photos?query=${destination}+landscape+travel&orientation=landscape&per_page=3&client_id=${key}`)
                  const data = await res.json()
                  if (data?.results?.length > 0) {
                      setImages(data.results.map(r => r.urls.regular))
+                 } else {
+                     setImages(fallbackImages)
                  }
-             } catch(err) { console.error('Unsplash error', err) }
+             } catch(err) { setImages(fallbackImages) }
         }
         fetchImages()
     }, [destination])
@@ -344,10 +351,16 @@ export default function Chat() {
                 <div style={{ borderTop: '1px solid rgba(123,189,232,0.1)', paddingTop: '24px' }}>
                     <div style={{ fontSize: '12px', color: '#49769F', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 600, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}><Save size={14} /> My Saved Trips</div>
                     
-                    {/* Placeholder State */}
-                    <div style={{ textAlign: 'center', padding: '24px 16px', background: 'rgba(10,65,116,0.15)', borderRadius: '12px', border: '1px dashed rgba(123,189,232,0.2)' }}>
-                        <div style={{ color: '#7BBDE8', fontSize: '13px', marginBottom: '8px' }}>No trips saved yet</div>
-                        <div style={{ color: '#49769F', fontSize: '12px', lineHeight: 1.5 }}>When you generate an itinerary you love, save it here to access it later!</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        {[
+                            { name: "Bali Retreat (4 Days)", date: "Oct 24, 2026" },
+                            { name: "Paris Getaway (Weekend)", date: "Nov 02, 2026" }
+                        ].map((trip, i) => (
+                            <div key={i} className="deep-hover" style={{ background: 'rgba(10,65,116,0.2)', border: '1px solid rgba(123,189,232,0.1)', padding: '12px', borderRadius: '8px', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                                <div style={{ color: '#FBE4D8', fontSize: '13px', fontWeight: 500 }}>{trip.name}</div>
+                                <div style={{ color: '#49769F', fontSize: '11px' }}>Created {trip.date}</div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

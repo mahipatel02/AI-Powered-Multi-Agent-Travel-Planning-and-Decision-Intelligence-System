@@ -6,6 +6,13 @@ import LazyImage from '../components/LazyImage'
 
 const API = 'http://localhost:8000'
 
+const floatingIcons = [
+    { icon: '🎞️', delay: 0, x: '8%', y: '15%' },
+    { icon: '🥂', delay: 0.5, x: '88%', y: '25%' },
+    { icon: '💌', delay: 1, x: '12%', y: '75%' },
+    { icon: '✨', delay: 0.3, x: '85%', y: '80%' },
+]
+
 export default function Memories() {
     const [memories, setMemories] = useState([])
     const [loading, setLoading] = useState(true)
@@ -43,16 +50,31 @@ export default function Memories() {
     }
 
     return (
-        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #001D39 0%, #0A4174 50%, #291C0E 100%)', paddingTop: '80px', paddingBottom: '40px' }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, var(--abyss) 0%, var(--navy) 40%, var(--abyss) 100%)', paddingTop: '80px', paddingBottom: '40px', position: 'relative', overflow: 'hidden' }}>
+            <div className="film-grain"></div>
+
+            <div style={{ position: 'absolute', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(230,213,195,0.1) 0%, transparent 70%)', top: '20%', left: '10%', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(108,141,120,0.15) 0%, transparent 70%)', bottom: '10%', right: '5%', pointerEvents: 'none' }} />
+
+            {floatingIcons.map((t, i) => (
+                <motion.div key={`float-${i}`}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 0.8, scale: 1, y: [0, -15, 0] }}
+                    transition={{ delay: t.delay, duration: 4, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' }}
+                    className="floating-3d-icon"
+                    style={{ left: t.x, top: t.y, fontSize: '36px' }}
+                >{t.icon}</motion.div>
+            ))}
+
+            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 2 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px', flexWrap: 'wrap', gap: '20px' }}>
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                        <div className="section-tag" style={{ background: 'rgba(123, 189, 232, 0.15)', borderColor: 'rgba(123, 189, 232, 0.3)', color: '#BDD8E9' }}>
+                        <div className="section-tag glass-beige" style={{ color: 'var(--beige-warm)', border: 'none' }}>
                             <Camera size={12} /> Community Feed
                         </div>
                         <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '56px', color: '#FBE4D8', fontWeight: 600, lineHeight: 1.1, marginTop: '12px' }}>Travel Memories</h1>
                         <p style={{ color: '#7BBDE8', fontSize: '15px', marginTop: '12px', maxWidth: '500px' }}>
-                            Share your favorite moments, hidden gems, and real experiences with the TripMind community.
+                            Share your favorite moments, hidden gems, and real experiences with the Lumina community.
                         </p>
                     </motion.div>
                     
@@ -81,8 +103,8 @@ export default function Memories() {
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
                         {memories.map((m, i) => (
                             <motion.div key={m.id || i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-                                style={{ background: 'rgba(10, 65, 116, 0.3)', backdropFilter: 'blur(10px)', border: '1px solid rgba(123,189,232,0.1)', borderRadius: '20px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
-                                whileHover={{ y: -5, borderColor: 'rgba(123,189,232,0.3)' }}
+                                className="glass-green deep-hover"
+                                style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
                             >
                                 <div style={{ height: '240px', width: '100%', position: 'relative' }}>
                                     <LazyImage src={m.image_url} alt={m.destination} />
@@ -118,7 +140,7 @@ export default function Memories() {
                         <div style={{ position: 'absolute', inset: 0, background: 'rgba(0, 29, 57, 0.8)', backdropFilter: 'blur(8px)' }} onClick={() => setShowModal(false)} />
                         
                         <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
-                            className="glass" style={{ position: 'relative', width: '100%', maxWidth: '500px', padding: '32px', borderRadius: '24px', zIndex: 1, background: 'linear-gradient(160deg, rgba(41, 28, 14, 0.9) 0%, rgba(10, 65, 116, 0.9) 100%)', border: '1px solid rgba(123,189,232,0.2)' }}>
+                            className="glass-beige deep-hover" style={{ position: 'relative', width: '100%', maxWidth: '500px', padding: '32px', zIndex: 1 }}>
                             <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '28px', color: '#FBE4D8', marginBottom: '8px' }}>Share your journey</h2>
                             <p style={{ color: '#7BBDE8', fontSize: '13px', marginBottom: '24px' }}>Drop an image URL and let others know how it went.</p>
                             

@@ -50,7 +50,7 @@ export default function Navbar() {
                     fontFamily: 'Cormorant Garamond, serif',
                     fontSize: '22px', fontWeight: 600,
                     color: '#FBE4D8', letterSpacing: '1px',
-                }}>TripMind</span>
+                }}>Lumina</span>
             </Link>
 
             <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }} className="desktop-nav">

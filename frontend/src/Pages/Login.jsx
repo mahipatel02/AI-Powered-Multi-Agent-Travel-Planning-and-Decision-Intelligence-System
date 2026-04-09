@@ -59,7 +59,7 @@ export default function Login() {
                         <Plane size={24} color="#BDD8E9" />
                     </div>
                     <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '32px', color: '#FBE4D8', fontWeight: 600 }}>
-                        {isLogin ? 'Welcome back' : 'Join TripMind'}
+                        {isLogin ? 'Welcome back' : 'Join Lumina'}
                     </h2>
                     <p style={{ color: '#7BBDE8', fontSize: '14px', marginTop: '8px' }}>
                         {isLogin ? 'Enter your details to access your trips' : 'Sign up to start planning with AI'}

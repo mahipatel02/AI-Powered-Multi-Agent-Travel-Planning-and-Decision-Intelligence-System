@@ -9,15 +9,16 @@ export default function RegretScore() {
     const [form, setForm] = useState({ destination: '', would_revisit: true, overrated_aspects: '', exceeded_expectations: '', crowds_score: 3, expense_score: 3, safety_score: 3, expectations_score: 3 })
     const [result, setResult] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [step, setStep] = useState(1)
+    const [errorMsg, setErrorMsg] = useState('')
 
     const submit = async () => {
         if (!form.destination) return
         setLoading(true)
+        setErrorMsg('')
         try {
             const res = await axios.post(`${API}/regret`, new URLSearchParams({ ...form, would_revisit: form.would_revisit }))
             setResult(res.data)
-        } catch { alert('Error calculating score') }
+        } catch { setErrorMsg('Failed to calculate score. Please check connection.') }
         setLoading(false)
     }
 
@@ -115,6 +116,11 @@ export default function RegretScore() {
                                     style={{ background: 'rgba(76,29,61,0.5)', borderColor: 'rgba(248,149,144,0.3)', color: '#FBE4D8', resize: 'none' }} />
                             </div>
 
+                            {errorMsg && (
+                                <div style={{ color: '#DC586D', background: 'rgba(220,88,109,0.1)', padding: '12px', borderRadius: '8px', fontSize: '13px', marginBottom: '16px', border: '1px solid rgba(220,88,109,0.2)' }}>
+                                    ⚠️ {errorMsg}
+                                </div>
+                            )}
                             <button className="btn-coral" onClick={submit} disabled={loading || !form.destination}
                                 style={{ padding: '16px', fontSize: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                                 <Brain size={16} />

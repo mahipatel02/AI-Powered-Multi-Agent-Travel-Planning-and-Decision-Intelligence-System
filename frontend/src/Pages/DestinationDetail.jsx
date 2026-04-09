@@ -14,15 +14,27 @@ export default function DestinationDetail() {
 
     useEffect(() => {
         const fetchImage = async () => {
+            const fallbackHero = "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&h=900&fit=crop";
+            const fallbackGallery = [
+                "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&h=300&fit=crop",
+                "https://images.unsplash.com/photo-1504150558240-0b4fd8946624?w=400&h=300&fit=crop",
+                "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=400&h=300&fit=crop"
+            ];
+            
             try {
+                if (!import.meta.env.VITE_UNSPLASH_ACCESS_KEY) throw new Error("No API key");
                 const res = await fetch(`https://api.unsplash.com/search/photos?query=${displayName}+landscape&orientation=landscape&per_page=4&client_id=${import.meta.env.VITE_UNSPLASH_ACCESS_KEY}`)
+                if (!res.ok) throw new Error("API Limit Reached");
                 const data = await res.json()
                 if (data && data.results && data.results.length > 0) {
                     setImage(data.results[0].urls.raw + "&w=1600&h=900&fit=crop")
                     setGallery(data.results.slice(1, 4).map(img => img.urls.raw + "&w=400&h=300&fit=crop"))
+                } else {
+                    throw new Error("No images found");
                 }
             } catch (err) {
-                console.error("Failed to fetch image", err)
+                setImage(fallbackHero)
+                setGallery(fallbackGallery)
             } finally {
                 setLoading(false)
             }
