@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
 import { Send, Sparkles, Save } from 'lucide-react'
 
-const API = 'https://ai-powered-multi-agent-travel-planning.onrender.com'
+const API = 'http://localhost:8000'
 
 const ImageGallery = ({ destination }) => {
     const [images, setImages] = useState([])

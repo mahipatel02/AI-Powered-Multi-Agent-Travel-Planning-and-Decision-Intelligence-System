@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Camera, Upload, Sparkles, MapPin, Image } from 'lucide-react'
 import LazyImage from '../components/LazyImage'
 
-const API = 'https://ai-powered-multi-agent-travel-planning.onrender.com'
+const API = 'http://localhost:8000'
 
 const floatingIcons = [
     { icon: '📸', delay: 0, x: '10%', y: '15%' },

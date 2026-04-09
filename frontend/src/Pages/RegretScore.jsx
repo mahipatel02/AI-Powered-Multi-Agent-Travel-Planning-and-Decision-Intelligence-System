@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
 import { Heart, TrendingDown, Star, Brain } from 'lucide-react'
 
-const API = 'https://ai-powered-multi-agent-travel-planning.onrender.com'
+const API = 'http://localhost:8000'
 
 export default function RegretScore() {
     const [form, setForm] = useState({ destination: '', would_revisit: true, overrated_aspects: '', exceeded_expectations: '', crowds_score: 3, expense_score: 3, safety_score: 3, expectations_score: 3 })
